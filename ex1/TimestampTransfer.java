@@ -1,5 +1,4 @@
 package No1;
-
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,19 +15,28 @@ import java.util.Scanner;
 public class TimestampTransfer {
 	@SuppressWarnings("resource")
 	public static void main(String[] args){
+		//键盘输入
 		Scanner scanner = new Scanner(System.in);
+		//定义时间格式
 		SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		//定义时间格式
 		SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		while (scanner.hasNext()){
+			//键盘数据读入获取
 			String line = scanner.nextLine();
+			//声明Date时间对象
 			Date lineDate = null;
+			//时间戳
 			long lineTimestamp;
 			try {
+				//把读入的字符串时间用"yyyy-MM-dd HH:mm:ss"格式转化为Date类型
 				lineDate = inputFormat.parse(line);
+				//获取Date时间的时间戳
 				lineTimestamp = lineDate.getTime();
+				//把Date类型时间格式化为"yyyy/MM/dd HH:mm:ss"和时间戳输出
 				System.out.println(outputFormat.format(lineDate) + " to " + lineTimestamp);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
+				//转换异常输出
 				e.printStackTrace();
 			}
 		}
