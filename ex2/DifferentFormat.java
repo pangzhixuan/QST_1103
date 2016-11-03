@@ -19,13 +19,57 @@ public class DifferentFormat {
 	public static void main(String[] args){
 		Scanner scanner = new Scanner(System.in);
 		Locale locale = Locale.US; 
-		SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", locale); //修改格式
+		SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy:HH:mm:ss", locale); //修改格式
 		while (scanner.hasNext()){
 			String line = scanner.nextLine();
 			Date lineDate = null;
 			long lineTimestamp;
 			try {
-				lineDate = inputFormat.parse(line);
+				//分割字符串为了把月份的英文缩写提取出来
+				String[] strs = line.split("/");
+				String num = null;
+				//把英文的月份缩写转化为数字月份
+				switch (strs[1]) {
+				case "Jan":
+					num = "01";
+					break;
+				case "Feb":
+					num = "02";
+					break;
+				case "Mar":
+					num = "03";
+					break;
+				case "Apr":
+					num = "04";
+					break;
+				case "May":
+					num = "05";
+					break;
+				case "Jun":
+					num = "06";
+					break;
+				case "Jul":
+					num = "07";
+					break;
+				case "Aug":
+					num = "08";
+					break;
+				case "Sep":
+					num = "09";
+					break;
+				case "Oct":
+					num = "10";
+					break;
+				case "Nov":
+					num = "11";
+					break;
+				case "Dec":
+					num = "12";
+					break;
+				}
+				//把原时间字符串中的英文月份用数字替换
+				String line2 = line.replaceAll(strs[1], num);
+				lineDate = inputFormat.parse(line2);
 				lineTimestamp = lineDate.getTime();
 				System.out.println(lineTimestamp);
 			} catch (ParseException e) {
