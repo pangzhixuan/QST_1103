@@ -1,5 +1,7 @@
 package No4;
 
+package No1;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
@@ -13,13 +15,14 @@ import java.util.regex.Pattern;
 
 public class MapperOfIPFilter {
 	public static void main(String[] args) throws ParseException, IOException,FileNotFoundException{
-		
+		//判断args输入参数是否有值
 		if(args.length<1){
 			System.out.println("Please input beginTime, endTime");
 			System.exit(-1);
 		}
 		
 		String begin_endTime=args[0];
+		//把输入的参数用，分割为两个时间
 		String [] str = begin_endTime.split(",");
 		SimpleDateFormat regularFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
@@ -29,9 +32,10 @@ public class MapperOfIPFilter {
 		//正则表达式提取出ip和时间
 		String pattern = "(\\d+.\\d+.\\d+.\\d+) [^ ]* [^ ]* \\[(\\d+\\/[JFMAONSD][a-z]{2}\\/\\d{4}:\\d{2}:\\d{2}:\\d{2}) .*";
 		Pattern r = Pattern.compile(pattern);
-		
+		//管道输入
 		Scanner scanner = new Scanner(System.in);
 		String line=null;
+		//存储ip的值
 		Set<String> set = new HashSet<>();
 		while(scanner.hasNext()){
 			line=scanner.nextLine();
@@ -42,13 +46,14 @@ public class MapperOfIPFilter {
 				ip = m.group(1);
 				tm = m.group(2);
 			}
-			
+			//调用getTimes方法获得当前读入的时间戳
 			long time=getTimes(tm);
-			
+			//判断是否在给定的时间区间
 			if(time>=beginDate.getTime() && time<=endDate.getTime()){
 				set.add(ip);
 			}
 		 }
+		//输出ip的去重个数
 		System.out.println(set.size());
 	}
 		
